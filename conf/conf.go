@@ -7,13 +7,13 @@ import (
 	"time"
 
 	"github.com/hashicorp/consul/api"
-	"github.com/tiny-sky/Tdtm/dao/mongodb"
-	"github.com/tiny-sky/Tdtm/dao/mysqlx"
-	"github.com/tiny-sky/Tdtm/registry"
-	"github.com/tiny-sky/Tdtm/registry/consulx"
-	"github.com/tiny-sky/Tdtm/registry/etcdx"
-	"github.com/tiny-sky/Tdtm/server/httpsrv"
-	"github.com/tiny-sky/Tdtm/transport/common"
+	"github.com/tiny-sky/Tdtm/core/dao/mongodb"
+	"github.com/tiny-sky/Tdtm/core/dao/mysqlx"
+	"github.com/tiny-sky/Tdtm/core/registry"
+	"github.com/tiny-sky/Tdtm/core/registry/consulx"
+	"github.com/tiny-sky/Tdtm/core/registry/etcdx"
+	"github.com/tiny-sky/Tdtm/core/server/httpsrv"
+	"github.com/tiny-sky/Tdtm/core/transport/common"
 )
 
 type (
