@@ -7,7 +7,7 @@ import (
 
 	"github.com/tiny-sky/Tdtm/core/consts"
 	"github.com/tiny-sky/Tdtm/core/dao"
-	"github.com/tiny-sky/Tdtm/core/entity"
+	"github.com/tiny-sky/Tdtm/core/dao/entity"
 	"github.com/tiny-sky/Tdtm/log"
 	"github.com/tiny-sky/Tdtm/tools"
 )

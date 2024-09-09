@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/tiny-sky/Tdtm/core/entity"
+	"github.com/tiny-sky/Tdtm/core/dao/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
 )
 
 func main() {
-	outPath := "./dao/mysqlx/query"
+	outPath := "../../dao/mysqlx/query"
 
 	g := gen.NewGenerator(gen.Config{
 		OutPath: outPath,
@@ -19,8 +19,11 @@ func main() {
 	if err != nil {
 		panic("gorm err")
 	}
+
+	//复用已有的SQL连接配置db(*gorm.DB)
 	g.UseDB(db)
 
+	// 生成对应 CRUD 代码
 	g.ApplyBasic(entity.Global{}, entity.Branch{})
 
 	g.Execute()

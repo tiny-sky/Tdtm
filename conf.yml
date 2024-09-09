@@ -1,0 +1,39 @@
+## conf
+automaticExecution2: false  #when the first stage of execution ends, it will commit automatically or rollback if it is true
+timeout: 7 #unit of second
+server:
+  grpc:
+    listenOn: 8088
+    keyFile:   #server key
+    certFile:  #server cert
+    gateway:
+      isOpen: true
+      certFile:  #client cert
+      serverName: #server name
+  http:
+    listenOn: 8087
+
+db:
+  driver: mysql
+  mysql:
+    dbURL: root:tdtm@(127.0.0.1:3306)/Tdtm?charset=utf8mb4&parseTime=True&loc=Local
+    maxLifetime: 7200
+    maxIdleConns: 10
+    maxOpenConns: 20
+  mongodb:
+    url: mongodb://127.0.0.1:27017/easycar
+    minPool: 10
+    maxPool: 20
+
+registry: #If the registry is configured,we need to register the service to the  registry center when the server start
+  etcd:
+    hosts: "127.0.0.1:2379"
+    user: "root"
+    pass: "tdtm"
+  consul:
+    default: false
+
+cron:
+  ## max retry times when rm is not available
+ maxTimes: 3
+ timeInterval: 5 #unit is minute. it means that the next retry is 5m later, not in strict mode

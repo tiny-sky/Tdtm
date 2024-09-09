@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/tiny-sky/Tdtm/core/entity"
+	"github.com/tiny-sky/Tdtm/core/dao/entity"
 )
 
 func newBranch(db *gorm.DB, opts ...gen.DOOption) branch {

@@ -25,8 +25,10 @@ func main() {
 		log.Fatalf("%s", err)
 	}
 
+	// init : http、db
 	settings.Init()
 
+	// init : Transactional CRUD Operations
 	dao := dao.GetTransaction()
 	newCoordinator := coordinator.NewCoordinator(dao, executor.NewExecutor(), settings.AutomaticExecution2)
 

@@ -31,12 +31,6 @@ func NewManager() *manager {
 	manager := &manager{
 		m: sync.Map{},
 	}
-	// var list []Transport
-
-	// list = append(list, http_.NewTransporter())
-	// for _, transporter := range list {
-	// 	manager.m.Store(transporter.GetType(), transporter)
-	// }
 
 	transporter := http_.NewTransporter()
 	manager.m.Store(string(transporter.GetType()), transporter)

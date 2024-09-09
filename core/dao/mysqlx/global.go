@@ -7,8 +7,8 @@ import (
 	"gorm.io/gen/field"
 
 	"github.com/tiny-sky/Tdtm/core/consts"
+	"github.com/tiny-sky/Tdtm/core/dao/entity"
 	"github.com/tiny-sky/Tdtm/core/dao/mysqlx/query"
-	"github.com/tiny-sky/Tdtm/core/entity"
 	"github.com/tiny-sky/Tdtm/tools"
 )
 

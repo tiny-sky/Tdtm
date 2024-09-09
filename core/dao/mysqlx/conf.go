@@ -1,11 +1,9 @@
 package mysqlx
 
 import (
-	"context"
 	"time"
 
 	"github.com/tiny-sky/Tdtm/core/dao"
-	"github.com/tiny-sky/Tdtm/core/dao/sql"
 	"github.com/tiny-sky/Tdtm/tools"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -37,13 +35,6 @@ func (m *Settings) Init() {
 
 	if m.MaxIdleConns > 0 {
 		d.SetMaxIdleConns(m.MaxIdleConns)
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
-	defer cancel()
-	for _, tableSql := range sql.Sql() {
-		_, err := d.ExecContext(ctx, tableSql)
-		tools.ErrToPanic(err)
 	}
 
 	dao.SetTransaction(NewDao(db))

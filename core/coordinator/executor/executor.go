@@ -9,7 +9,7 @@ import (
 
 	"github.com/tiny-sky/Tdtm/core/consts"
 	"github.com/tiny-sky/Tdtm/core/dao"
-	"github.com/tiny-sky/Tdtm/core/entity"
+	"github.com/tiny-sky/Tdtm/core/dao/entity"
 	"github.com/tiny-sky/Tdtm/core/transport"
 	"github.com/tiny-sky/Tdtm/core/transport/common"
 	"github.com/tiny-sky/Tdtm/log"

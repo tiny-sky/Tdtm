@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/tiny-sky/Tdtm/core/consts"
-	"github.com/tiny-sky/Tdtm/core/entity"
+	"github.com/tiny-sky/Tdtm/core/dao/entity"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
