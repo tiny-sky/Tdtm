@@ -3,6 +3,7 @@ module github.com/tiny-sky/Tdtm
 go 1.23.0
 
 require (
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/go-resty/resty/v2 v2.14.0
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/consul/api v1.29.4

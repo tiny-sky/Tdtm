@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
-	"time"
 
 	"github.com/tiny-sky/Tdtm/conf/file"
 	"github.com/tiny-sky/Tdtm/core"
