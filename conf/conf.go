@@ -12,6 +12,7 @@ import (
 	"github.com/tiny-sky/Tdtm/core/registry"
 	"github.com/tiny-sky/Tdtm/core/registry/consulx"
 	"github.com/tiny-sky/Tdtm/core/registry/etcdx"
+	"github.com/tiny-sky/Tdtm/core/server/grpcsrv"
 	"github.com/tiny-sky/Tdtm/core/server/httpsrv"
 	"github.com/tiny-sky/Tdtm/core/transport/common"
 )

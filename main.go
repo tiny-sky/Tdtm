@@ -10,6 +10,7 @@ import (
 	"github.com/tiny-sky/Tdtm/core/coordinator/executor"
 	"github.com/tiny-sky/Tdtm/core/dao"
 	"github.com/tiny-sky/Tdtm/core/server/grpcsrv"
+	"github.com/tiny-sky/Tdtm/core/server/httpsrv"
 	"github.com/tiny-sky/Tdtm/core/server/runner"
 	"github.com/tiny-sky/Tdtm/log"
 )
@@ -26,7 +27,7 @@ func main() {
 		log.Fatalf("%s", err)
 	}
 
-	// init : http、grpc、db
+	// init : ListenOn、db
 	settings.Init()
 
 	// init : Transactional CRUD Operations
@@ -37,9 +38,19 @@ func main() {
 	var servers []core.Server
 
 	// create grpc server
-	grpcsrv, err := grpcsrv
+	grpcSrv, err := grpcsrv.New(settings.Grpc, newCoordinator)
+	if err != nil {
+		log.Fatalf("+v", err)
+	}
+
 	cronServer := runner.New(newCoordinator, dao, runner.WithMaxTimes(settings.Cron.MaxTimes), runner.WithTimeInterval(settings.Cron.TimeInterval))
-	servers = append(servers, cronServer)
+	servers = append(servers, grpcSrv, cronServer)
+
+	if settings.Grpc.OpenGateway() {
+		httpProxySrv := httpsrv.New(settings.Http,
+			grpcSrv.Handler(settings.Grpc.Gateway.CertFile, settings.Grpc.Gateway.ServerName))
+		servers = append(servers, httpProxySrv)
+	}
 
 	var opts []core.Option
 	opts = append(opts, core.WithServers(servers...))

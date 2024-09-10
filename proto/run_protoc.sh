@@ -9,6 +9,8 @@ protoc -I="$SCRIPT_DIR" \
   -I="$SCRIPT_DIR/validate" \
   --go_out="$SCRIPT_DIR" \
   --go-grpc_out="$SCRIPT_DIR" \
+  --grpc-gateway_out="$SCRIPT_DIR" --grpc-gateway_opt=paths=source_relative \
+  --validate_out="lang=go:$SCRIPT_DIR" \
   "$SCRIPT_DIR/tdtm.proto"
 
 # Check if the command was successful

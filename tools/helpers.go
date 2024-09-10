@@ -2,8 +2,13 @@ package tools
 
 import (
 	"fmt"
+	"net"
+	"os"
 	"runtime/debug"
+	"strconv"
+	"strings"
 
+	"github.com/tiny-sky/Tdtm/log"
 	"gorm.io/gorm"
 )
 
@@ -56,7 +61,7 @@ func FigureOutListen(listenOn string) string {
 
 	host, port, err := net.SplitHostPort(listenOn)
 	if err != nil {
-		logging.Warnf(err.Error())
+		log.Warnf(err.Error())
 		return listenOn
 	}
 
