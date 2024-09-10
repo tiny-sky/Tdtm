@@ -9,6 +9,7 @@ import (
 	"github.com/tiny-sky/Tdtm/core/coordinator"
 	"github.com/tiny-sky/Tdtm/core/coordinator/executor"
 	"github.com/tiny-sky/Tdtm/core/dao"
+	"github.com/tiny-sky/Tdtm/core/server/grpcsrv"
 	"github.com/tiny-sky/Tdtm/core/server/runner"
 	"github.com/tiny-sky/Tdtm/log"
 )
@@ -25,7 +26,7 @@ func main() {
 		log.Fatalf("%s", err)
 	}
 
-	// init : http、db
+	// init : http、grpc、db
 	settings.Init()
 
 	// init : Transactional CRUD Operations
@@ -35,6 +36,8 @@ func main() {
 	// TODO : Added Other Server
 	var servers []core.Server
 
+	// create grpc server
+	grpcsrv, err := grpcsrv
 	cronServer := runner.New(newCoordinator, dao, runner.WithMaxTimes(settings.Cron.MaxTimes), runner.WithTimeInterval(settings.Cron.TimeInterval))
 	servers = append(servers, cronServer)
 

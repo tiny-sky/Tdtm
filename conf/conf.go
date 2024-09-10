@@ -35,7 +35,7 @@ type (
 
 	Server struct {
 		Http httpsrv.Http `yaml:"http"`
-		// Grpc grpcsrv.Grpc `yaml:"grpc"`
+		Grpc grpcsrv.Grpc `yaml:"grpc"`
 	}
 
 	RegistrySettings struct {
@@ -70,6 +70,9 @@ func (s *Settings) Init() {
 
 	if s.Http.ListenOn == "" {
 		s.Http.ListenOn = "8087"
+	}
+	if s.Grpc.ListenOn == "" {
+		s.Grpc.ListenOn = "8089"
 	}
 	if s.Timeout > 0 {
 		common.ReplaceTimeout(time.Duration(s.Timeout) * time.Second)
