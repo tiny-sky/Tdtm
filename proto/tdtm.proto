@@ -10,7 +10,7 @@ import "validate/validate.proto";
 
 
 service Tdtm {
-  rpc Begin(google.protobuf.Empty) returns (Beginesp) {
+  rpc Begin(google.protobuf.Empty) returns (BeginResp) {
     option (google.api.http) = {
       post: "/tdtm/begin",
       body: "*"
@@ -80,7 +80,7 @@ enum BranchState {
   FAILED = 4;
 }
 
-message Beginesp {
+message BeginResp {
   string gid = 1;
 }
 

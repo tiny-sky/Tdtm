@@ -19,6 +19,48 @@ func ConvertBranchActionToGrpc(action BranchAction) proto.Action {
 	return proto.Action_UN_KNOW_TRANSACTION_TYPE
 }
 
+func ConvertStateToGrpc(state GlobalState) proto.GlobalState {
+	switch state {
+	case Init:
+		return proto.GlobalState_INIT
+	case Phase1Preparing:
+		return proto.GlobalState_PHASE1_PROCESSING
+	case Phase1Failed:
+		return proto.GlobalState_PHASE1_FAILED
+	case Phase1Success:
+		return proto.GlobalState_PHASE1_SUCCESS
+	case Phase2Committing:
+		return proto.GlobalState_PHASE2_COMMITTING
+	case Phase2Rollbacking:
+		return proto.GlobalState_PHASE2_ROLLBACKING
+	case Phase2CommitFailed:
+		return proto.GlobalState_PHASE2_COMMIT_FAILED
+	case Phase2RollbackFailed:
+		return proto.GlobalState_PHASE2_ROLLBACK_FAILED
+	case Committed:
+		return proto.GlobalState_COMMITTED
+	case Rollbacked:
+		return proto.GlobalState_ROLLBACKED
+	default:
+	}
+	return proto.GlobalState_GLOBAL_DEFAULT
+}
+
+func ConvertBranchStateToGrpc(state BranchState) proto.BranchState {
+	switch state {
+	case BranchInit:
+		return proto.BranchState_B_INIT
+	case BranchRetrying:
+		return proto.BranchState_RETRYING
+	case BranchSucceed:
+		return proto.BranchState_SUCCEED
+	case BranchFailState:
+		return proto.BranchState_FAILED
+	default:
+	}
+	return proto.BranchState_UN_KNOW_STATE
+}
+
 func ConvertTranTypeToGrpc(tranType TransactionType) proto.TranType {
 	switch tranType {
 	case TCC:

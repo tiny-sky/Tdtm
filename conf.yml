@@ -6,8 +6,6 @@ server:
     listenOn: 8088
     gateway:
       isOpen: true
-      certFile:  #client cert
-      serverName: #server name
   http:
     listenOn: 8087
 

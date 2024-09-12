@@ -24,8 +24,8 @@ import (
 )
 
 var (
-	_             proto.TdtmServer = (*GrpcSrv)(nil)
-	ErrGidNoExist                  = errors.New("gid is not exits")
+	_              proto.TdtmServer = (*GrpcSrv)(nil)
+	ErrGidNotExist                  = errors.New("gid is not exits")
 )
 
 type GrpcSrv struct {

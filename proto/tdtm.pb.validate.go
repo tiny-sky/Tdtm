@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on Beginesp with the rules defined in the
+// Validate checks the field values on BeginResp with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *Beginesp) Validate() error {
+func (m *BeginResp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Beginesp with the rules defined in
+// ValidateAll checks the field values on BeginResp with the rules defined in
 // the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in BeginespMultiError, or nil
+// result is a list of violation errors wrapped in BeginRespMultiError, or nil
 // if none found.
-func (m *Beginesp) ValidateAll() error {
+func (m *BeginResp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Beginesp) validate(all bool) error {
+func (m *BeginResp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -60,18 +60,18 @@ func (m *Beginesp) validate(all bool) error {
 	// no validation rules for Gid
 
 	if len(errors) > 0 {
-		return BeginespMultiError(errors)
+		return BeginRespMultiError(errors)
 	}
 
 	return nil
 }
 
-// BeginespMultiError is an error wrapping multiple validation errors returned
-// by Beginesp.ValidateAll() if the designated constraints aren't met.
-type BeginespMultiError []error
+// BeginRespMultiError is an error wrapping multiple validation errors returned
+// by BeginResp.ValidateAll() if the designated constraints aren't met.
+type BeginRespMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m BeginespMultiError) Error() string {
+func (m BeginRespMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -80,11 +80,11 @@ func (m BeginespMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m BeginespMultiError) AllErrors() []error { return m }
+func (m BeginRespMultiError) AllErrors() []error { return m }
 
-// BeginespValidationError is the validation error returned by
-// Beginesp.Validate if the designated constraints aren't met.
-type BeginespValidationError struct {
+// BeginRespValidationError is the validation error returned by
+// BeginResp.Validate if the designated constraints aren't met.
+type BeginRespValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -92,22 +92,22 @@ type BeginespValidationError struct {
 }
 
 // Field function returns field value.
-func (e BeginespValidationError) Field() string { return e.field }
+func (e BeginRespValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BeginespValidationError) Reason() string { return e.reason }
+func (e BeginRespValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BeginespValidationError) Cause() error { return e.cause }
+func (e BeginRespValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BeginespValidationError) Key() bool { return e.key }
+func (e BeginRespValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BeginespValidationError) ErrorName() string { return "BeginespValidationError" }
+func (e BeginRespValidationError) ErrorName() string { return "BeginRespValidationError" }
 
 // Error satisfies the builtin error interface
-func (e BeginespValidationError) Error() string {
+func (e BeginRespValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -119,14 +119,14 @@ func (e BeginespValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBeginesp.%s: %s%s",
+		"invalid %sBeginResp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BeginespValidationError{}
+var _ error = BeginRespValidationError{}
 
 var _ interface {
 	Field() string
@@ -134,7 +134,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BeginespValidationError{}
+} = BeginRespValidationError{}
 
 // Validate checks the field values on RegisterReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

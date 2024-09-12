@@ -32,7 +32,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TdtmClient interface {
-	Begin(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Beginesp, error)
+	Begin(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*BeginResp, error)
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// phase1
 	Start(ctx context.Context, in *StartReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -51,9 +51,9 @@ func NewTdtmClient(cc grpc.ClientConnInterface) TdtmClient {
 	return &tdtmClient{cc}
 }
 
-func (c *tdtmClient) Begin(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Beginesp, error) {
+func (c *tdtmClient) Begin(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*BeginResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Beginesp)
+	out := new(BeginResp)
 	err := c.cc.Invoke(ctx, Tdtm_Begin_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -115,7 +115,7 @@ func (c *tdtmClient) GetState(ctx context.Context, in *GetStateReq, opts ...grpc
 // All implementations must embed UnimplementedTdtmServer
 // for forward compatibility.
 type TdtmServer interface {
-	Begin(context.Context, *emptypb.Empty) (*Beginesp, error)
+	Begin(context.Context, *emptypb.Empty) (*BeginResp, error)
 	Register(context.Context, *RegisterReq) (*emptypb.Empty, error)
 	// phase1
 	Start(context.Context, *StartReq) (*emptypb.Empty, error)
@@ -134,7 +134,7 @@ type TdtmServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTdtmServer struct{}
 
-func (UnimplementedTdtmServer) Begin(context.Context, *emptypb.Empty) (*Beginesp, error) {
+func (UnimplementedTdtmServer) Begin(context.Context, *emptypb.Empty) (*BeginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Begin not implemented")
 }
 func (UnimplementedTdtmServer) Register(context.Context, *RegisterReq) (*emptypb.Empty, error) {
