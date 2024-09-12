@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"crypto/tls"
 	"time"
 
 	"google.golang.org/grpc"
@@ -11,9 +10,7 @@ import (
 // DefaultOptions default for a Client Options
 var DefaultOptions = &Options{
 	connTimeout: 15 * time.Second,
-	dailOpts: []grpc.DialOption{
-		grpc.WithDefaultServiceConfig(`{"loadBalancingConfig": [{"TdtmBalancer":{}}]}`),
-	},
+	dailOpts:    []grpc.DialOption{},
 }
 
 type HandlerFn func(ctx context.Context) error
@@ -22,7 +19,6 @@ type Option func(options *Options)
 
 type Options struct {
 	connTimeout time.Duration
-	tls         *tls.Config
 	dailOpts    []grpc.DialOption
 	isDiscovery bool
 	beforeFunc  HandlerFn
@@ -58,11 +54,5 @@ func WithDiscovery() Option {
 func WithGrpcDailOpts(opts []grpc.DialOption) Option {
 	return func(options *Options) {
 		options.dailOpts = append(options.dailOpts, opts...)
-	}
-}
-
-func WithTls(tls *tls.Config) Option {
-	return func(options *Options) {
-		options.tls = tls
 	}
 }

@@ -2,7 +2,6 @@ package grpcsrv
 
 import (
 	"context"
-	"crypto/tls"
 	"errors"
 	"fmt"
 	"net"
@@ -52,14 +51,6 @@ func New(settings Grpc, coordinator *coordinator.Coordinator) (*GrpcSrv, error) 
 
 	var err error
 
-	if settings.Tls() {
-		certificate, err := tls.LoadX509KeyPair(settings.CertFile, settings.KeyFile)
-		if err != nil {
-			log.Fatalf("%+v", err)
-		}
-		tlsConf := &tls.Config{Certificates: []tls.Certificate{certificate}}
-		srv.groupOpts = append(srv.groupOpts, grpc.Creds(credentials.NewTLS(tlsConf)))
-	}
 	srv.groupOpts = append(srv.groupOpts, grpc.MaxRecvMsgSize(5*1024*1024))
 	srv.lis, err = net.Listen("tcp", srv.listenOn)
 	return srv, err

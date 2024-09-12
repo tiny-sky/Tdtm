@@ -39,6 +39,16 @@ func (g GlobalImpl) GetGlobal(ctx context.Context, gid string) (entity.Global, e
 	return *m, nil
 }
 
+/*
+ * SELECT *
+ * FROM global_tasks
+ * WHERE NextCronTime >= {before_unix}
+ * AND NextCronTime <= {now_unix}
+ * AND State IN ({state_list})
+ * AND TryTimes < {max_times}
+ * ORDER BY UpdateTime
+ * LIMIT {limit};
+ */
 func (g GlobalImpl) FindProcessingList(ctx context.Context, limit, maxTimes int) (list []*entity.Global, err error) {
 	global := g.query.Global
 	now := time.Now()

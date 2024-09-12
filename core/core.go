@@ -8,8 +8,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/tiny-sky/Tdtm/core/endpoint"
 	"github.com/tiny-sky/Tdtm/core/registry"
+	"github.com/tiny-sky/Tdtm/core/server/endpoint"
 	"github.com/tiny-sky/Tdtm/log"
 	"golang.org/x/sync/errgroup"
 )
@@ -68,6 +68,11 @@ func (core *Core) Run(ctx context.Context) error {
 		core.errGroup.Go(func() error {
 			<-core.stopCtx.Done()
 			return srv.Stop(ctx)
+		})
+
+		core.errGroup.Go(func() error {
+			defer core.runWaitGroup.Done()
+			return srv.Run(ctx)
 		})
 	}
 

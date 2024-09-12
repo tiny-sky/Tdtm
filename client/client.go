@@ -9,7 +9,6 @@ import (
 	"github.com/tiny-sky/Tdtm/log"
 	"github.com/tiny-sky/Tdtm/proto"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -57,21 +56,13 @@ func New(uri string, options ...Option) (client *Client, err error) {
 }
 
 func (client *Client) conn(ctx context.Context) error {
-	// gRPC 连接选项配置
-	var grpcOptions []grpc.DialOption
-	grpcOptions = append(grpcOptions, client.options.dailOpts...)
-
-	// 处理 TLS 凭证
-	creds := insecure.NewCredentials()
-	if client.options.tls != nil {
-		creds = credentials.NewTLS(client.options.tls)
-	}
-	grpcOptions = append(grpcOptions, grpc.WithTransportCredentials(creds))
-
-	conn, err := grpc.DialContext(ctx, client.uri, grpcOptions...)
+	conn, err := grpc.DialContext(ctx, client.uri, client.options.dailOpts...)
 	if err != nil {
 		return err
 	}
+
+	options := client.options.dailOpts
+	options = append(options, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	client.grpcConn = conn
 	client.tdtmCli = proto.NewTdtmClient(client.grpcConn)

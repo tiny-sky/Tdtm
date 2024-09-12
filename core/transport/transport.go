@@ -7,6 +7,7 @@ import (
 	"sync"
 
 	"github.com/tiny-sky/Tdtm/core/transport/common"
+	"github.com/tiny-sky/Tdtm/core/transport/grpc"
 	http_ "github.com/tiny-sky/Tdtm/core/transport/http"
 	"github.com/tiny-sky/Tdtm/log"
 )
@@ -32,8 +33,12 @@ func NewManager() *manager {
 		m: sync.Map{},
 	}
 
-	transporter := http_.NewTransporter()
-	manager.m.Store(string(transporter.GetType()), transporter)
+	var list []Transport
+
+	list = append(list, http_.NewTransporter(), grpc.NewTransporter())
+	for _, transport := range list {
+		manager.m.Store(string(transport.GetType()), transport)
+	}
 	return manager
 }
 

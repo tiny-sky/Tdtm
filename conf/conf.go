@@ -6,15 +6,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/tiny-sky/Tdtm/core/dao/mongodb"
 	"github.com/tiny-sky/Tdtm/core/dao/mysqlx"
 	"github.com/tiny-sky/Tdtm/core/registry"
-	"github.com/tiny-sky/Tdtm/core/registry/consulx"
 	"github.com/tiny-sky/Tdtm/core/registry/etcdx"
 	"github.com/tiny-sky/Tdtm/core/server/grpcsrv"
 	"github.com/tiny-sky/Tdtm/core/server/httpsrv"
 	"github.com/tiny-sky/Tdtm/core/transport/common"
+
+	_ "net/http/pprof"
 )
 
 type (
@@ -29,9 +28,8 @@ type (
 	}
 
 	DB struct {
-		Driver  string           `yaml:"driver"`
-		Mysql   mysqlx.Settings  `yaml:"mysql"`
-		Mongodb mongodb.Settings `yaml:"mongodb"`
+		Driver string          `yaml:"driver"`
+		Mysql  mysqlx.Settings `yaml:"mysql"`
 	}
 
 	Server struct {
@@ -40,8 +38,7 @@ type (
 	}
 
 	RegistrySettings struct {
-		Etcd   etcdx.Conf   `yaml:"etcd"`
-		Consul consulx.Conf `yaml:"consul"`
+		Etcd etcdx.Conf `yaml:"etcd"`
 	}
 
 	Cron struct {
@@ -54,8 +51,6 @@ func (db *DB) Init() {
 	switch db.Driver {
 	case "mysql":
 		db.Mysql.Init()
-	case "mongodb":
-		db.Mongodb.Init()
 	default:
 		panic(fmt.Errorf("no support %s database", db.Driver))
 	}
@@ -65,6 +60,7 @@ func (db *DB) Init() {
 func (s *Settings) Init() {
 	s.DB.Init()
 
+	// 性能分析
 	go func() {
 		log.Println(http.ListenAndServe(":6060", nil))
 	}()
@@ -81,18 +77,9 @@ func (s *Settings) Init() {
 }
 
 func (s *Settings) SetRegistry() bool {
-	return !s.Registry.Etcd.Empty() || !s.Registry.Consul.Empty()
+	return !s.Registry.Etcd.Empty()
 }
 
 func (s *Settings) GetRegistry() (registry.Registry, error) {
-	if !s.Registry.Etcd.Empty() {
-		return etcdx.New(s.Registry.Etcd)
-	}
-
-	// consul and add others?
-	client, err := api.NewClient(s.Registry.Consul.Conf())
-	if err != nil {
-		return nil, err
-	}
-	return consulx.New(client), nil
+	return etcdx.New(s.Registry.Etcd)
 }

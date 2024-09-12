@@ -4,8 +4,6 @@ timeout: 7 #unit of second
 server:
   grpc:
     listenOn: 8088
-    keyFile:   #server key
-    certFile:  #server cert
     gateway:
       isOpen: true
       certFile:  #client cert
@@ -20,18 +18,12 @@ db:
     maxLifetime: 7200
     maxIdleConns: 10
     maxOpenConns: 20
-  mongodb:
-    url: mongodb://127.0.0.1:27017/easycar
-    minPool: 10
-    maxPool: 20
 
 registry: #If the registry is configured,we need to register the service to the  registry center when the server start
   etcd:
     hosts: "127.0.0.1:2379"
     user: "root"
     pass: "tdtm"
-  consul:
-    default: false
 
 cron:
   ## max retry times when rm is not available

@@ -11,7 +11,7 @@ type (
 
 const (
 	Http Net = "http"
-	// Grpc Net = "grpc"
+	Grpc Net = "grpc"
 )
 
 type Resp struct {
