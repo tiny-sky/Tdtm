@@ -85,6 +85,7 @@ func (core *Core) Run(ctx context.Context) error {
 		}
 	}
 
+	// 优雅关停
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGINT)
 

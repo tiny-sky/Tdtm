@@ -88,3 +88,8 @@ func (r *Registry) keepalive(ctx context.Context, id clientv3.LeaseID) {
 		}
 	}
 }
+
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+	w, err := NewWatcher(ctx, r.client, serviceName)
+	return w, err
+}

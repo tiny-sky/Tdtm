@@ -3,7 +3,6 @@ package tools
 import (
 	"fmt"
 	"net"
-	"os"
 	"runtime/debug"
 	"strconv"
 	"strings"
@@ -69,11 +68,7 @@ func FigureOutListen(listenOn string) string {
 		return listenOn
 	}
 
-	ip := os.Getenv("POD_IP")
-	if len(ip) == 0 {
-		ip = InternalIp()
-	}
-
+	ip := InternalIp()
 	if len(ip) == 0 {
 		return listenOn
 	}

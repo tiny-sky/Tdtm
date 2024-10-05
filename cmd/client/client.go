@@ -18,6 +18,7 @@ func main() {
 		log.Fatalf("%+v", err)
 	}
 	ctx := context.Background()
+	defer cli.Close(ctx)
 
 	gid, err := cli.Begin(ctx)
 	if err != nil {

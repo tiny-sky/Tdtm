@@ -43,24 +43,22 @@ func New(uri string, options ...Option) (client *Client, err error) {
 		server = BuildDiscoveryTarget(uri)
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), opts.connTimeout)
-	defer cancel()
-
 	client = &Client{
 		uri:     server,
 		options: opts,
 	}
 
-	err = client.conn(ctx)
+	err = client.conn()
 	return
 }
 
-func (client *Client) conn(ctx context.Context) error {
-	conn, err := grpc.DialContext(ctx, client.uri, client.options.dailOpts...)
+func (client *Client) conn() error {
+	conn, err := grpc.NewClient(client.uri, client.options.dailOpts...)
 	if err != nil {
 		return err
 	}
 
+	// TODO : Add TLS
 	options := client.options.dailOpts
 	options = append(options, grpc.WithTransportCredentials(insecure.NewCredentials()))
 

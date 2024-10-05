@@ -70,6 +70,6 @@ func main() {
 	if err := newCore.Run(context.Background()); err != nil {
 		log.Fatalf("%+v", err)
 	}
-	log.Infof("easycar server is stopped")
+	log.Infof("server is stopped")
 
 }
