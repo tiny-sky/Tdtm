@@ -42,7 +42,6 @@ func (s *GrpcSrv) Register(ctx context.Context, req *proto.RegisterReq) (*emptyp
 		return nil, err
 	}
 	return &emptypb.Empty{}, nil
-
 }
 
 func (s *GrpcSrv) Start(ctx context.Context, req *proto.StartReq) (*emptypb.Empty, error) {

@@ -59,8 +59,10 @@ func (client *Client) conn() error {
 	}
 
 	// TODO : Add TLS
+	// TODO : Add custom load balancing
 	options := client.options.dailOpts
 	options = append(options, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	options = append(options, grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`))
 
 	client.grpcConn = conn
 	client.tdtmCli = proto.NewTdtmClient(client.grpcConn)

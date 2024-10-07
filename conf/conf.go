@@ -69,7 +69,7 @@ func (s *Settings) Init() {
 		s.Http.ListenOn = "8087"
 	}
 	if s.Grpc.ListenOn == "" {
-		s.Grpc.ListenOn = "8089"
+		s.Grpc.ListenOn = "8088"
 	}
 	if s.Timeout > 0 {
 		common.ReplaceTimeout(time.Duration(s.Timeout) * time.Second)
